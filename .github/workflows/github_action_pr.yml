@@ -8,7 +8,7 @@ on:
 jobs:
   Enforce-GitHub-Jira-Link-Action:
     runs-on: ubuntu-latest
-    if: ${{ !contains(fromJson('["main", "staging", "master", "beta", "develop", "prod", "development"]'), github.event.pull_request.head.ref) }}
+    if: ${{ !contains(github.event.head_commit.message, '[ci skip]') && !contains(fromJson('["main", "staging", "master", "beta", "develop", "prod", "development"]'), github.event.pull_request.head.ref) }}
     steps:
       - name: Enforce Pull Request Title includes Jira Issue Key
         uses: ryanvade/enforce-pr-title-style-action@v2.1.1
